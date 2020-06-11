@@ -5,7 +5,9 @@
 
 import 'package:flutter/widgets.dart';
 
-import 'pages/dash_board/home.dart';
+import 'pages/dash_board.dart';
+import 'pages/home/first_day_page.dart';
+import 'pages/home/home.dart';
 import 'pages/login_page.dart';
 import 'pages/routes_page.dart';
 
@@ -17,6 +19,18 @@ RouteResult getRouteResult({String name, Map<String, dynamic> arguments}) {
         name: name,
         widget: DashBoard(),
         routeName: '控制台',
+      );
+    case '/dash-board/first-day-of-term':
+      return RouteResult(
+        name: name,
+        widget: FirstDayPage(),
+        routeName: '学期起始日',
+      );
+    case '/dash-board/home':
+      return RouteResult(
+        name: name,
+        widget: FrameHomePage(),
+        routeName: '总览',
       );
     case '/login':
       return RouteResult(

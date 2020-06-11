@@ -17,22 +17,27 @@ class HttpUtils {
     dynamic body,
     Map<String, String> headers,
   }) async {
-    final http.Response response = await _getResponse(
-      fetchType,
-      url: url,
-      queryParameters: queryParameters,
-      body: body,
-      headers: headers,
-    );
+    try {
+      final http.Response response = await _getResponse(
+        fetchType,
+        url: url,
+        queryParameters: queryParameters,
+        body: body,
+        headers: headers,
+      );
 
-    final Map<String, dynamic> json =
-        jsonDecode(response.body) as Map<String, dynamic>;
-    final ResponseModel<T> model = ResponseModel<T>.fromJson(json);
-    if (model.isSucceed) {
-      return model;
-    } else {
-      realDebugPrint('Response is not succeed: ${model.msg}');
-      throw AssertionError(model.msg);
+      final Map<String, dynamic> json =
+      jsonDecode(response.body) as Map<String, dynamic>;
+      final ResponseModel<T> model = ResponseModel<T>.fromJson(json);
+      if (model.isSucceed) {
+        return model;
+      } else {
+        print('Response is not succeed: ${model.msg}');
+        throw AssertionError(model.msg);
+      }
+    } catch (e) {
+      print(e);
+      return null;
     }
   }
 
@@ -71,6 +76,7 @@ class HttpUtils {
     Map<String, String> headers,
   }) async {
     http.Response response;
+    headers ??= <String, String>{};
     headers['Content-Type'] = 'application/json;charset=utf-8';
     switch (fetchType) {
       case FetchType.get:

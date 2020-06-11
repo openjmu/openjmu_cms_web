@@ -4,31 +4,47 @@
 // **************************************************************************
 const List<String> routeNames = <String>[
   '/dash-board',
+  '/dash-board/first-day-of-term',
+  '/dash-board/home',
   '/login',
-  '/routes',
+  '/routes'
 ];
 
 class Routes {
   const Routes._();
 
-  /// '控制台'
+  /// 控制台
   ///
-  /// [name] : '/dash-board'
+  /// [name] : /dash-board
   ///
-  /// [routeName] : '控制台'
+  /// [routeName] : 控制台
   static const String dashBoard = '/dash-board';
 
-  /// '登录页'
+  /// 总览
   ///
-  /// [name] : '/login'
+  /// [name] : /dash-board/home
   ///
-  /// [routeName] : '登录页'
+  /// [routeName] : 总览
+  static const String dashBoardFirstDayOfTerm = '/dash-board/first-day-of-term';
+
+  /// 总览
+  ///
+  /// [name] : /dash-board/home
+  ///
+  /// [routeName] : 总览
+  static const String dashBoardHome = '/dash-board/home';
+
+  /// 登录页
+  ///
+  /// [name] : /login
+  ///
+  /// [routeName] : 登录页
   static const String login = '/login';
 
-  /// '路由页'
+  /// 路由页
   ///
-  /// [name] : '/routes'
+  /// [name] : /routes
   ///
-  /// [routeName] : '路由页'
+  /// [routeName] : 路由页
   static const String routes = '/routes';
 }

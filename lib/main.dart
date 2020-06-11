@@ -24,9 +24,13 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: <TargetPlatform, PageTransitionsBuilder>{
-            TargetPlatform.android: ZoomPageTransitionsBuilder(),
-            TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+            TargetPlatform.android: FadeTransitionBuilder(),
+            TargetPlatform.macOS: FadeTransitionBuilder(),
+            TargetPlatform.windows: FadeTransitionBuilder(),
           },
+        ),
+        textTheme: GoogleFonts.poppinsTextTheme(
+          context.themeData.textTheme,
         ),
       ),
       home: RoutesPage(),
@@ -37,6 +41,25 @@ class MyApp extends StatelessWidget {
       ),
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
+    );
+  }
+}
+
+class FadeTransitionBuilder extends PageTransitionsBuilder {
+  /// Construct a [FadeTransitionBuilder].
+  const FadeTransitionBuilder();
+
+  @override
+  Widget buildTransitions<T>(
+      PageRoute<T> route,
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child,
+      ) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
     );
   }
 }
