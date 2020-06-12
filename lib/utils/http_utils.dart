@@ -16,6 +16,7 @@ class HttpUtils {
     Map<String, String> queryParameters,
     dynamic body,
     Map<String, String> headers,
+    bool shouldDisplayOverlay = false,
   }) async {
     try {
       final http.Response response = await _getResponse(

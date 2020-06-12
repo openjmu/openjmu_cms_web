@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 part 'first_day_model.dart';
+part 'user_login_model.dart';
 
 class ResponseModel<T extends DataModel> {
   ResponseModel({this.code, this.msg, this.data, this.models});
@@ -51,6 +52,7 @@ typedef DataFactory<T extends DataModel> = T Function(dynamic json);
 
 final Map<Type, Function> dataModelFactories = <Type, DataFactory>{
   FirstDayModel: (dynamic json) => FirstDayModel.fromJson(json),
+  UserLoginModel: (dynamic json) => UserLoginModel.fromJson(json),
 };
 
 T makeModel<T extends DataModel>(dynamic json) {

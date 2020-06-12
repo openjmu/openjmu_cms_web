@@ -13,16 +13,79 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  Widget get usernameTextField => TextField(
+    controller: usernameController,
+    decoration: const InputDecoration(
+      labelText: 'Username',
+    ),
+  );
+
+  Widget get passwordTextField => TextField(
+    controller: passwordController,
+    decoration: const InputDecoration(
+      labelText: 'Password',
+    ),
+    obscureText: true,
+  );
+
+  Widget get loginButton => Padding(
+    padding: const EdgeInsets.only(top: 30.0),
+    child: ClipRRect(
+      borderRadius: maxBorderRadius,
+      child: Container(
+        constraints: const BoxConstraints(
+          maxWidth: 100.0,
+        ),
+        height: 50.0,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: <Color>[defaultColor, Colors.pink],
+            begin: AlignmentDirectional.topStart,
+            end: AlignmentDirectional.bottomEnd,
+          ),
+        ),
+        child: MaterialButton(
+          onPressed: () {
+            HttpUtils.fetch<UserLoginModel>(
+              FetchType.post,
+              url: API.login,
+              body: <String, dynamic>{
+                'username': usernameController.text,
+                'password': passwordController.text,
+              },
+            ).then((ResponseModel<UserLoginModel> model) {
+              print(model.data);
+            });
+          },
+          child: const SizedBox.expand(
+            child: Center(
+              child: Text(
+                'SIGN IN',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 40.0),
           decoration: BoxDecoration(
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color:
-                    context.themeData.colorScheme.background.withOpacity(0.5),
+                color: context.themeData.colorScheme.background.withOpacity(0.5),
                 blurRadius: 30.0,
                 spreadRadius: 0.0,
               ),
@@ -52,58 +115,9 @@ class _LoginPageState extends State<LoginPage> {
                   fontSize: 42.0,
                 ),
               ),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                ),
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 30.0),
-                constraints: const BoxConstraints(
-                  maxWidth: 100.0,
-                ),
-                height: 50.0,
-                decoration: const BoxDecoration(
-                  borderRadius: maxBorderRadius,
-                  gradient: LinearGradient(
-                    colors: <Color>[defaultColor, Colors.pink],
-                    begin: AlignmentDirectional.topStart,
-                    end: AlignmentDirectional.bottomEnd,
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: maxBorderRadius,
-                  child: Material(
-                    type: MaterialType.transparency,
-                    child: InkWell(
-                      onTap: () {
-                        HttpUtils.fetch(
-                          FetchType.get,
-                          url: API.login,
-                        ).then((ResponseModel<dynamic> model) {
-                          print(model);
-                        });
-                      },
-                      child: const SizedBox.expand(
-                        child: Center(
-                          child: Text(
-                            'SIGN IN',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              usernameTextField,
+              passwordTextField,
+              loginButton,
             ],
           ),
         ),

@@ -2,6 +2,9 @@
 /// PLEASE DO NOT EDIT MANUALLY.
 class R {
 
+  /// ![preview](file://J:\Coding\Garages\FlutterGarage\openjmu_cms_web\assets\avatar_placeholder.png)
+  static const String ASSETS_AVATAR_PLACEHOLDER_PNG = 'assets/avatar_placeholder.png';
+
   /// ![preview](file://J:\Coding\Garages\FlutterGarage\openjmu_cms_web\assets\logo_1024_rounded.png)
   static const String ASSETS_LOGO_1024_ROUNDED_PNG = 'assets/logo_1024_rounded.png';
 }
